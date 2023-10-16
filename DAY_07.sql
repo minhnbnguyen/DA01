@@ -52,7 +52,7 @@ SELECT
 COUNT (ID),
 EXTRACT (MONTH FROM joining_date) AS Month
 FROM employees
-WHERE EXTRACT (MONTH FROM joining_date) IN (1,2,3,4,5,6,7)
+WHERE joining_date BETWEEN '01-01-2022' AND '07-31-2022'
 GROUP BY EXTRACT (MONTH FROM joining_date)
 ORDER BY EXTRACT (MONTH FROM joining_date);
 --- Strata Scratch Macedonia vintages Wine Magazine
