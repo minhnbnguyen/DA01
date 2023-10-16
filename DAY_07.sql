@@ -43,17 +43,17 @@ WHERE LENGTH (content) > 15;
 --- Leetcode User Activity for 30 days
 SELECT
 activity_date AS day,
-COUNT (DISTINCT user_id) AS active_users
+COUNT(DISTINCT user_id) AS active_users
 FROM Activity
-GROUP BY activity_date
-HAVING activity_date BETWEEN '2019-06-28' AND '2019-07-27';
+WHERE activity_date BETWEEN date '2019-06-28' AND date '2019-07-27'
+GROUP BY activity_date;
 --- Strata Scratch Number of Hires During Specific Time Period - Deloitte
 SELECT
 COUNT (ID),
 EXTRACT (MONTH FROM joining_date) AS Month
 FROM employees
+WHERE EXTRACT (MONTH FROM joining_date) IN (1,2,3,4,5,6,7)
 GROUP BY EXTRACT (MONTH FROM joining_date)
-HAVING EXTRACT (MONTH FROM joining_date) IN (1,2,3,4,5,6,7)
 ORDER BY EXTRACT (MONTH FROM joining_date);
 --- Strata Scratch Macedonia vintages Wine Magazine
 SELECT
