@@ -39,4 +39,20 @@ WHERE mng.reports_to IS NOT NULL
 GROUP BY emp.employee_id
 ORDER BY emp.employee_id;
 --- Leetcode List the products order in a period
---- Leetcode SQL Page with no like
+SELECT
+a.product_name,
+SUM(b.unit) AS unit
+FROM products AS a
+JOIN orders AS b
+ON a.product_id = b.product_id
+WHERE b.order_date BETWEEN date ('2020-02-01') AND date ('2020-02-29')
+GROUP BY a.product_name
+HAVING SUM(b.unit) >=100;
+--- DataLemur Page With No Likes [Facebook SQL Interview Question]
+SELECT
+a.page_id
+FROM pages AS a
+LEFT JOIN page_likes AS b
+ON a.page_id=b.page_id
+WHERE b.user_id IS NULL
+ORDER BY a.page_id;
