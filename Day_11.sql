@@ -17,6 +17,16 @@ FROM texts AS a
 JOIN emails AS b
 ON a.email_id=b.email_id;
 --- Data Lemur Sending vs. Opening Snaps [Snapchat SQL Interview Question]
+SELECT b.age_bucket,
+ROUND(100*SUM (a.time_spent) FILTER (WHERE a.activity_type = 'open')/
+SUM (a.time_spent),2) AS open_perc,
+ROUND(100*SUM (a.time_spent) FILTER (WHERE a.activity_type = 'send')/
+SUM (a.time_spent),2) AS send_perc
+FROM activities AS a
+JOIN age_breakdown AS b
+ON a.user_id=b.user_id
+WHERE a.activity_type IN ('open','send')
+GROUP BY b.age_bucket
 --- Data Lemur Supercloud Customer [Microsoft SQL Interview Question]
 SELECT
 a.customer_id
