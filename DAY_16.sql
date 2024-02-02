@@ -1,4 +1,16 @@
 -- ex1: leetcode-mmediate-food-delivery.
+-- 
+SELECT
+COUNT (*)
+FROM
+(
+SELECT delivery_id, order_number
+FROM
+(
+SELECT delivery_id, customer_id,
+DENSE_RANK () OVER (PARTITION BY customer_id ORDER BY order_date) AS order_number
+FROM Delivery
+) AS a
 -- ex2: leetcode-game-play-analysis.
 -- ex3: leetcode-exchange-seats.
 -- ex4: leetcode-restaurant-growth.
