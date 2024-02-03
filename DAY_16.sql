@@ -28,6 +28,22 @@ GROUP BY player_id
 SELECT ROUND (avg(time_period=1),2) AS fraction
 FROM c
 -- ex3: leetcode-exchange-seats.
+-- even number
+SELECT *,
+CASE
+    WHEN id % 2 != 0 THEN LEAD (student) OVER (ORDER BY id)
+    WHEN id % 2 = 0 THEN LAG (student) OVER (ORDER BY id)
+END AS student
+FROM Seat
+-- odd number
+SELECT
+SELECT *,
+CASE
+    WHEN id = MAX(id) AND id % 2 != 0 THEN LEAD (student) OVER (ORDER BY id)
+    WHEN id = MAX(id) AND id % 2 = 0 THEN LAG (student) OVER (ORDER BY id)
+    ELSE NULL
+END AS student
+FROM Seat
 -- ex4: leetcode-restaurant-growth.
 -- ex5: leetcode-investments-in-2016.
 -- ex6: leetcode-department-top-three-salaries.
