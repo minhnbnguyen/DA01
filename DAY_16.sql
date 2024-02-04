@@ -36,7 +36,18 @@ CASE
     ELSE (SELECT student FROM Seat WHERE id IN (SELECT MAX(id) FROM Seat))
 END AS student
 FROM Seat
--- ex4: leetcode-restaurant-growth.
+-- ex4: histogram-of-tweets Data Lemur
+SELECT tweet_bucket,
+COUNT (user_id) AS user_nums
+FROM
+(
+SELECT user_id,
+COUNT(tweet_id) AS tweet_bucket
+FROM tweets
+WHERE tweet_date BETWEEN '01/01/2022 00:00:00' AND '12/31/2022 00:00:00'
+GROUP BY user_id
+) AS a
+GROUP BY tweet_bucket
 -- ex5: leetcode-investments-in-2016.
 -- ex6: leetcode-department-top-three-salaries.
 -- ex7: leetcode-last-person-to-fit-in-the-bus.
