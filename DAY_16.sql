@@ -62,5 +62,10 @@ GROUP BY app_id
 ) AS a
 GROUP BY app_id, clicks, impressions
 -- ex6: Second Day Confirmation [TikTok SQL Interview Question] Data Lemur
--- ex7: leetcode-last-person-to-fit-in-the-bus.
+SELECT user_id
+FROM emails AS a JOIN texts AS b ON a.email_id = b.email_id
+WHERE a.signup_date = b.action_date - INTERVAL '1' DAY
+AND b.signup_action = 'Confirmed'
+-- ex7: Pharmacy Analytics (Part 1) [CVS Health SQL Interview Question] Data Lemur
+
 -- ex8: leetcode-product-price-at-a-given-date.
