@@ -48,7 +48,19 @@ WHERE tweet_date BETWEEN '01/01/2022 00:00:00' AND '12/31/2022 00:00:00'
 GROUP BY user_id
 ) AS a
 GROUP BY tweet_bucket
--- ex5: leetcode-investments-in-2016.
--- ex6: leetcode-department-top-three-salaries.
+-- ex5: App Click-through Rate (CTR) [Facebook SQL Interview Question] Data Lemur
+SELECT app_id,
+ROUND (100.0*clicks/impressions,2) AS ctr
+FROM
+(
+SELECT app_id,
+SUM (CASE WHEN event_type = 'impression' THEN 1 ELSE 0 END) AS impressions,
+SUM (CASE WHEN event_type = 'click' THEN 1 ELSE 0 END) AS clicks
+FROM events
+WHERE timestamp BETWEEN '01/01/2022 00:00:00' AND '12/31/2022 23:59:59'
+GROUP BY app_id
+) AS a
+GROUP BY app_id, clicks, impressions
+-- ex6: Second Day Confirmation [TikTok SQL Interview Question] Data Lemur
 -- ex7: leetcode-last-person-to-fit-in-the-bus.
 -- ex8: leetcode-product-price-at-a-given-date.
