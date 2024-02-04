@@ -67,5 +67,38 @@ FROM emails AS a JOIN texts AS b ON a.email_id = b.email_id
 WHERE a.signup_date = b.action_date - INTERVAL '1' DAY
 AND b.signup_action = 'Confirmed'
 -- ex7: Pharmacy Analytics (Part 1) [CVS Health SQL Interview Question] Data Lemur
-
--- ex8: leetcode-product-price-at-a-given-date.
+SELECT drug,
+total_sales - cogs AS total_profit
+FROM pharmacy_sales
+ORDER BY total_profit DESC
+LIMIT 3
+-- ex8: Top 5 Artists [Spotify SQL Interview Question] Data Lemur
+WITH stt AS (SELECT
+a.artist_name,
+a.artist_id,
+s.name,
+SUM (CASE
+  WHEN g.rank BETWEEN 1 AND 10 THEN 1
+  ELSE 0
+END) OVER (PARTITION BY s.artist_id) AS days 
+FROM artists AS a 
+JOIN songs AS s
+ON a.artist_id=s.artist_id
+JOIN global_song_rank AS g
+ON s.song_id=g.song_id
+ORDER BY
+SUM (CASE
+  WHEN g.rank BETWEEN 1 AND 10 THEN 1
+  ELSE 0
+END) OVER (PARTITION BY s.artist_id) DESC),
+haha AS(
+SELECT
+DISTINCT stt.artist_name,
+DENSE_RANK () OVER (ORDER BY stt.days DESC) AS artist_rank
+FROM stt
+ORDER BY DENSE_RANK () OVER (ORDER BY stt.days DESC))
+SELECT
+DISTINCT stt.artist_name, haha.artist_rank
+FROM stt JOIN haha ON stt.artist_name=haha.artist_name
+WHERE haha.artist_rank IN (1,2,3,4,5)
+ORDER BY haha.artist_rank, stt.artist_name;
